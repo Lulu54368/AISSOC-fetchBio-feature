@@ -8,7 +8,7 @@ export class Profile extends React.Component {
       this.state = { userData: null };
     }
   loadUserData(){
-    
+    //This method is to fetch a specified user
     this.setState({userData: null});
     this.fetchID = fetchUserData(this.props.username, (userData) => {
     this.setState({ userData });

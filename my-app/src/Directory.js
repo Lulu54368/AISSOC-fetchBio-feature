@@ -6,9 +6,10 @@ export function Directory(props) {
     <div className="Directory">
       <h2>User directory</h2>
       <Userlist
-        usernames={['dog', 'cat', 'komodo']}
+        usernames={props.list}
         onChoose={props.onChoose}
       />
     </div>
   );
 }
+

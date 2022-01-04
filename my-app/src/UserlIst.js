@@ -1,6 +1,7 @@
 import React from 'react';
 
 export class Userlist extends React.Component {
+  /*This class is to display user list and handle changes*/
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
