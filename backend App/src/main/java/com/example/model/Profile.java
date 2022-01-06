@@ -9,6 +9,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Profile {
     private Long ID;
-    private String lastname;
-    private String firstname;
+    private String name;
+
 }

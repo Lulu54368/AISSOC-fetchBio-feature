@@ -9,6 +9,7 @@ export class Userlist extends React.Component {
 
   handleClick(event) {
     this.props.onChoose(event.target.dataset.username);
+    
   }
 
   render() {
@@ -17,7 +18,7 @@ export class Userlist extends React.Component {
         {this.props.usernames.map((username) => (
           <li key={username}>
             <button data-username={username} onClick={this.handleClick}>
-              @{username}
+              {username}
             </button>
           </li>
         ))}

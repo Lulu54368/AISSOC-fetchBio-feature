@@ -1,3 +1,5 @@
+
+import UserService from "./services/UserService";
 const FAKE_USER_DATA = {
     cat: {
       name: 'Kitty Cat',
@@ -33,9 +35,10 @@ const FAKE_USER_DATA = {
   }
   
   export function fetchUserData(username, callback) {
-    if (!FAKE_USER_DATA.hasOwnProperty(username)) {
+    const politician = UserService.getUserProfile.data;
+    if (!politician.hasOwnProperty(username)) {
       throw new Error(
-        'Invalid username. Make sure it is "cat", "dog", or "komodo".'
+        'Invalid politician.".'
       );
     }
   

@@ -2,23 +2,40 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Profile } from './Profile';
 import { Directory } from './Directory';
-
+import UserService from './services/UserService';
 export class App extends React.Component {
+ 
   constructor(props) {
+    
     super(props);
     this.state = {
       currentUsername: null,
       searchItem: '',
-      userNameList: ['dog', 'cat', 'komodo'],
+      userNameList: [],
+      filteredNameList: []
     };
+    
     this.handleChoose = this.handleChoose.bind(this);
     this.handleReturnToDirectoryClick = this.handleReturnToDirectoryClick.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
+   
   }
   
+  componentDidMount(){
+     
+    UserService.getUsers().then((response)=>{
+        
+        this.setState({userNameList: response.data, filteredNameList: response.data});
+       
+    });
+  
+  }
   
   handleChoose(newUsername) {
-    this.setState({ currentUsername: newUsername });
+   const filtered = this.state.filteredNameList.filter((user) => user.name === newUsername);
+    
+    this.setState({ currentUsername: filtered });
+    
   }
 
   handleReturnToDirectoryClick() {
@@ -29,13 +46,13 @@ export class App extends React.Component {
     
     this.setState({searchItem: e.target.value});
 
-    this.setState({userNameList: ['dog', 'cat', 'komodo'].filter((val) => {
+    this.setState({filteredNameList: this.state.userNameList.filter((val) => {
       if(this.state.searchItem === ""){
-   
+      
         return val;
       }
-      else if(val.toLowerCase().includes(this.state.searchItem.toLowerCase())){
-     
+      else if(val.name.toLowerCase().includes(this.state.searchItem.toLowerCase())){
+        
         return val;
       }
 
@@ -46,7 +63,7 @@ export class App extends React.Component {
     
   
   render() {
-   
+    
     let body;
     
     if (this.state.currentUsername) {
@@ -57,7 +74,7 @@ export class App extends React.Component {
         />
       );
     } else {
-      body = <Directory onChoose={this.handleChoose} list = { this.state.userNameList}/>;
+      body = <Directory onChoose={this.handleChoose} list = { this.state.filteredNameList.map((user)=>user.name)}/>;
     }
    
  
@@ -81,6 +98,8 @@ export class App extends React.Component {
         </header>
 
         <main>{body}</main>
+        
+        
       </div>
     );
   }
