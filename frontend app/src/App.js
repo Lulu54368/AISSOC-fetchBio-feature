@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Profile } from './Profile';
 import { Directory } from './Directory';
 import UserService from './services/UserService';
+import { fetchUserData } from './dataFetcher';
 export class App extends React.Component {
  
   constructor(props) {
@@ -32,9 +33,11 @@ export class App extends React.Component {
   }
   
   handleChoose(newUsername) {
+    
    const filtered = this.state.filteredNameList.filter((user) => user.name === newUsername);
     
     this.setState({ currentUsername: filtered });
+    
     
   }
 
@@ -67,9 +70,10 @@ export class App extends React.Component {
     let body;
     
     if (this.state.currentUsername) {
+      
       body = (
         <Profile
-          username={this.state.currentUsername}
+          username={this.state.currentUsername[0]}
           onChoose={this.handleChoose}
         />
       );
@@ -84,7 +88,7 @@ export class App extends React.Component {
     return (
       <div className="App">
         <header>
-          <h1>PetBook</h1>
+          <h1>Politician profile</h1>
           
           <input type = "text" placeholder = "search ..." onChange = {this.handleFilter}/>
           
