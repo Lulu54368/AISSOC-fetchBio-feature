@@ -43,3 +43,25 @@ import UserService from "./services/UserService";
     clearTimeout(timeout);
     timeoutByFetchId.delete(fetch._id);
   }
+
+  export function fetchPolicyData(username, callback) {
+    var policy = null;
+    UserService.getPolicy(username.id).then((response)=>{
+      
+      policy = response.data;
+      
+    });
+   
+    const fetch = new Fetch();
+   
+    const delay = Math.floor(Math.random() * 1000) + 500;
+    const timeout = setTimeout(() => {
+      timeoutByFetchId.delete(fetch._id);
+      
+      callback(policy);
+    }, delay);
+  
+    timeoutByFetchId.set(fetch._id, timeout);
+  
+    return fetch;
+  }

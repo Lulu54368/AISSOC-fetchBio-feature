@@ -15,7 +15,7 @@ public class Politician {
     private String firstname;
     private Long latestMemberId;
     private Long Rebellions;
-    private Long Elaetorate;
+    private String Eletorate;
     private Long Votes;
     private House house;
     private Party party;
